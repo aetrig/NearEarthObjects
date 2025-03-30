@@ -15,6 +15,5 @@ public class NEO_Feed
 		string response = await client.GetStringAsync(call);
 		Asteroid_Feed? test = JsonSerializer.Deserialize<Asteroid_Feed>(response);
 		Console.WriteLine(test);
-		//Console.WriteLine(response);
 	}
 }
