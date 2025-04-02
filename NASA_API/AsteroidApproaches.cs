@@ -5,7 +5,7 @@ namespace NASA_API;
 internal class AsteroidApproaches : DbContext
 {
 	public DbSet<AsteroidDB> asteroids { get; set; }
-	//public DbSet<ApproachesDB> approaches { get; set; }
+	public DbSet<ApproachesDB> approaches { get; set; }
 	public AsteroidApproaches()
 	{
 		Database.EnsureCreated();
@@ -16,13 +16,10 @@ internal class AsteroidApproaches : DbContext
     }
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<Diameter>().HasNoKey();
-		modelBuilder.Ignore<Diameter>();
-
-		modelBuilder.Entity<Distance>().HasNoKey();
-		modelBuilder.Ignore<Distance>();
-
-		modelBuilder.Entity<Velocity>().HasNoKey();
-		modelBuilder.Ignore<Velocity>();
+        modelBuilder.Entity<AsteroidDB>().ComplexProperty(e => e.estimated_diameter);
+		modelBuilder.Entity<ApproachesDB>(b => {
+			b.ComplexProperty(e => e.velocity);
+			b.ComplexProperty(e => e.miss_distance);
+			});
 	}
 }
