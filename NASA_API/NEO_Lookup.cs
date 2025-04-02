@@ -2,7 +2,7 @@
 
 namespace NASA_API;
 
-public class NEO_Lookup
+internal class NEO_Lookup
 {
 	private HttpClient? client;
 	public async Task getData()

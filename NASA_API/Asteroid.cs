@@ -1,11 +1,11 @@
 ﻿namespace NASA_API;
 
-public record Estimated_diameter(Diameter kilometers, Diameter meters, Diameter miles, Diameter feet);
-public record Diameter(double estimated_diameter_min, double estimated_diameter_max);
-public record Close_approach_data(string close_approach_date, string close_approach_date_full, Velocity relative_velocity, Distance miss_distance, string orbiting_body);
-public record Velocity(string kilometers_per_second, string kilometers_per_hour, string miles_per_hour);
-public record Distance(string astronomical, string lunar, string kilometers, string miles);
-public class Asteroid
+internal record Estimated_diameter(Diameter kilometers, Diameter meters, Diameter miles, Diameter feet);
+internal record Diameter(double estimated_diameter_min, double estimated_diameter_max);
+internal record Close_approach_data(string close_approach_date, string close_approach_date_full, Velocity relative_velocity, Distance miss_distance, string orbiting_body);
+internal record Velocity(string kilometers_per_second, string kilometers_per_hour, string miles_per_hour);
+internal record Distance(string astronomical, string lunar, string kilometers, string miles);
+internal class Asteroid
 {
 	required public string id { get; set; }
 	required public string name { get; set; }

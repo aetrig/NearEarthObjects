@@ -2,7 +2,7 @@
 
 namespace NASA_API;
 
-public class NEO_Feed
+internal class NEO_Feed
 {
 	private HttpClient? client;
 	public async Task getData()
