@@ -13,7 +13,10 @@ class Program
         // Console.WriteLine(test3["luna"]["emi2"]);
         
         
-        NEO_Feed t = new();
-        t.getData().Wait();
+        //NEO_Feed t = new();
+        //t.getData().Wait();
+
+        NEO_Lookup t2 = new();
+        t2.getData().Wait();
     }
 }
