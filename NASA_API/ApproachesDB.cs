@@ -35,7 +35,10 @@ internal class ApproachesDB
 		date: {date},
 		velocity (km/s): {velocity.kilometers_per_second},
 		velocity (km/h): {velocity.kilometers_per_hour},
+		velocity (m/h): {velocity.miles_per_hour},
 		miss distance (AU): {miss_distance.astronomical},
+		miss distance (lunar): {miss_distance.lunar},
+		miss distance (miles): {miss_distance.miles},
 		miss distance (km): {miss_distance.kilometers},
 		orbiting body: {orbiting_body},
 		asteroid: {asteroid}

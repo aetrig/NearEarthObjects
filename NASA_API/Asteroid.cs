@@ -1,4 +1,6 @@
-﻿namespace NASA_API;
+﻿using System.Runtime.CompilerServices;
+[assembly: InternalsVisibleTo("MAUI")]
+namespace NASA_API;
 
 internal record Estimated_diameter(Diameter kilometers, Diameter meters, Diameter miles, Diameter feet);
 internal record Diameter(double estimated_diameter_min, double estimated_diameter_max);
@@ -35,4 +37,26 @@ internal class Asteroid
 		");
 		return asteroid;
 	}
+	// public AsteroidDB convertToDB()
+	// {
+	// 	return new AsteroidDB
+	// 	{
+	// 		nasa_id = id,
+	// 		name = name,
+	// 		magnitude = absolute_magnitude_h,
+	// 		estimated_diameter = new Estimated_diameterDB
+	// 		{
+	// 			estimated_diameter_max_km = estimated_diameter.kilometers.estimated_diameter_max,
+	// 			estimated_diameter_min_km = estimated_diameter.kilometers.estimated_diameter_min,
+	// 			estimated_diameter_max_m = estimated_diameter.meters.estimated_diameter_max,
+	// 			estimated_diameter_min_m = estimated_diameter.meters.estimated_diameter_min,
+	// 			estimated_diameter_max_miles = estimated_diameter.miles.estimated_diameter_max,
+	// 			estimated_diameter_min_miles = estimated_diameter.miles.estimated_diameter_min,
+	// 			estimated_diameter_max_feet = estimated_diameter.feet.estimated_diameter_max,
+	// 			estimated_diameter_min_feet = estimated_diameter.feet.estimated_diameter_min,
+	// 		},
+	// 		is_potentially_hazardous = is_potentially_hazardous_asteroid,
+	// 		is_sentry_object = is_sentry_object,
+	// 	};
+	// }
 }

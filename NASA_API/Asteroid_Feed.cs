@@ -1,5 +1,7 @@
-﻿namespace NASA_API;
+﻿using System.Runtime.CompilerServices;
+[assembly: InternalsVisibleTo("MAUI")]
 
+namespace NASA_API;
 internal class Asteroid_Feed
 {
 	public int element_count { get; set; }
@@ -11,9 +13,7 @@ internal class Asteroid_Feed
 		output += $"Number of entries: {element_count}\n\n";
 		foreach (KeyValuePair<string, List<Asteroid>> item in near_earth_objects)
 		{
-			output += "==================\n";
 			output += item.Key + ":\n";
-			output += "==================\n";
 			foreach (Asteroid asteroid in item.Value)
 			{
 				output += asteroid;

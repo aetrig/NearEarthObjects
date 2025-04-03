@@ -6,71 +6,101 @@ class Program
 {
 	static void Main(string[] args)
 	{
-		// double test1 = 0.0291443905;
-		// Console.WriteLine(test1);
-		// Dictionary<string,double> test2 = new();
-		// test2.Add("emi",0.3214);
-		// Dictionary<string,Dictionary<string,double>> test3 = new();
-		// test3.Add("luna", new Dictionary<string,double>("emi2", 14.124));
-		// Console.WriteLine(test3["luna"]["emi2"]);
 
-
-		// NEO_Feed t = new();
-		// t.getData().Wait();
-
-		// NEO_Lookup t2 = new();
-		// t2.getData().Wait();
+		string newAsteroidId = "2474163";
+		//Console.WriteLine(t2.asteroid);
 		AsteroidApproaches DbContext = new();
-		// DbContext.asteroids.Add(new AsteroidDB
-		// {
-		// 	nasa_id = "11111",
-		// 	name = "CCC_DDD",
-		// 	magnitude = 240.5,
-		// 	estimated_diameter = new Estimated_diameterDB {
-		// 		estimated_diameter_max_km = 6.6,
-		// 		estimated_diameter_min_km = 6.3,
-		// 		estimated_diameter_max_m = 6600.0,
-		// 		estimated_diameter_min_m = 6300.0,
-		// 		estimated_diameter_max_miles = 0.0,
-		// 		estimated_diameter_min_miles = 0.0,
-		// 		estimated_diameter_max_feet = 0.0,
-		// 		estimated_diameter_min_feet = 0.0,
-		// 	},
-		// 	is_potentially_hazardous = true,
-		// 	is_sentry_object = true,
-		// });
-		
-		//asteroidList[0].nasa_id = "22222";
-		// DbContext.approaches.Add(new ApproachesDB
-		// {
-		// 	date = "25-06-2023",
-		// 	velocity = new VelocityDB
-		// 	{
-		// 		kilometers_per_hour = "20",
-		// 		kilometers_per_second = "1",
-		// 		miles_per_hour = "3.6"
-		// 	},
-		// 	miss_distance = new DistanceDB
-		// 	{
-		// 		astronomical = "1",
-		// 		lunar = "0.5",
-		// 		kilometers = "300",
-		// 		miles = "143.4"
-		// 	},
-		// 	orbiting_body = "Earth",
-		// 	asteroid = asteroidList[0]
-		// });
-		
-		
-
-		// DbContext.asteroids.RemoveRange(DbContext.asteroids);
-		// DbContext.approaches.RemoveRange(DbContext.approaches);
-		// DbContext.SaveChanges();
+		//bool isAsteroidinDB = false;
 
 		List<AsteroidDB> asteroidList = DbContext.asteroids.ToList<AsteroidDB>();
 		List<ApproachesDB> approachesList = DbContext.approaches.ToList<ApproachesDB>();
+
+		if (DbContext.asteroids.Where(a => a.nasa_id == newAsteroidId).Count() == 0) {
+			Console.WriteLine($"There is no asteroid {newAsteroidId} in the DB");
+			NEO_Lookup t2 = new(newAsteroidId);
+			t2.getData().Wait();
+			DbContext.addAsteroid(t2.asteroid);
+		}
+		else
+		{
+			Console.WriteLine($"There is asteroid {newAsteroidId} in the DB");
+		}
+
+		string startDate = "2025-04-03";
+		string endDate = "2025-04-03";
+		NEO_Feed t = new(startDate, endDate);
+		t.getData().Wait();
+		foreach (string date in t.asteroid_feed.near_earth_objects.Keys)
+		{
+			foreach (Asteroid asteroid in t.asteroid_feed.near_earth_objects[date])
+			{
+				foreach (Close_approach_data approach in asteroid.close_approach_data)
+				{
+					string Date = approach.close_approach_date_full;
+					if (DbContext.approaches.Where(a => a.date == Date).Count() == 0)
+					{
+						//Add approach to DB
+						if (DbContext.asteroids.Where(a => a.nasa_id == asteroid.id).Count() == 0)
+						{
+							//Add the asteroid appraoching if not already in the DB
+							NEO_Lookup t2 = new(asteroid.id);
+							t2.getData().Wait();
+							DbContext.addAsteroid(t2.asteroid);
+						}
+						DbContext.addApproach(approach, asteroid);
+					}
+				}
+			}
+		}
+		//Close_approach_data Approach = Asteroid.close_approach_data[0];
+
+		// string Date = Approach.close_approach_date_full;
+		//DbContext.approaches.Add(
+		// ApproachesDB test = new ApproachesDB
+		// {
+		// 	date = testApproach.close_approach_date_full,
+		// 	velocity = new VelocityDB
+		// 	{
+		// 		kilometers_per_hour = testApproach.relative_velocity.kilometers_per_hour,
+		// 		kilometers_per_second = testApproach.relative_velocity.kilometers_per_second,
+		// 		miles_per_hour = testApproach.relative_velocity.miles_per_hour
+		// 	},
+		// 	miss_distance = new DistanceDB
+		// 	{
+		// 		astronomical = testApproach.miss_distance.astronomical,
+		// 		lunar = testApproach.miss_distance.lunar,
+		// 		kilometers = testApproach.miss_distance.kilometers,
+		// 		miles = testApproach.miss_distance.miles
+		// 	},
+		// 	orbiting_body = testApproach.orbiting_body,
+		// 	asteroid = DbContext.asteroids.Where(a => a.nasa_id == t.asteroid_feed.near_earth_objects[today][1].id).First()
+		// };
+		
+		// if (DbContext.approaches.Where(a => a.date == testDate).Count() != 0)
+		// {
+		// 	Console.WriteLine("Approach already in DB");
+		// }
+		// else
+		// {
+		// 	//Add to DB
+		// 	if (DbContext.asteroids.Where(a => a.nasa_id == testAsteroid.id).Count() == 0)
+		// 	{
+		// 		NEO_Lookup t2 = new(testAsteroid.id);
+		// 		t2.getData().Wait();
+		// 		DbContext.addAsteroid(t2.asteroid);
+		// 	}
+		// 	DbContext.addApproach(testApproach, testAsteroid);
+		// }
+		//Console.WriteLine(DbContext.approaches.Where(a => a.date == test.date && a.asteroid.Id == test.asteroid.Id ).Count());
+
+		// DbContext.asteroids.RemoveRange(DbContext.asteroids);
+		// DbContext.approaches.RemoveRange(DbContext.approaches);
+		//DbContext.SaveChanges();
+
+		Console.WriteLine("Asteroids");
 		asteroidList.ForEach(e => Console.Write(e));
+
+		Console.WriteLine("\nApproaches");
 		approachesList.ForEach(e => Console.Write(e));
-		// Console.WriteLine(asteroidList[2]);
 	}
 }
