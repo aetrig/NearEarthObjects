@@ -76,7 +76,7 @@ namespace NASA_API.Migrations
 
                     b.HasIndex("asteroidId");
 
-                    b.ToTable("approaches");
+                    b.ToTable("approaches", (string)null);
                 });
 
             modelBuilder.Entity("NASA_API.AsteroidDB", b =>
@@ -133,7 +133,7 @@ namespace NASA_API.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("asteroids");
+                    b.ToTable("asteroids", (string)null);
                 });
 
             modelBuilder.Entity("NASA_API.ApproachesDB", b =>

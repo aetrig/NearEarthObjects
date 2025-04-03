@@ -30,10 +30,9 @@
                     Clicked="getFeedData"/>
             </HorizontalStackLayout>
             
-            <!-- <ListView
-                x:Name="AsteroidListView"
-                ItemsSource="{Binding testAsteroidList}"
-                /> -->
+            <ListView
+                x:Name="AsteroidListView" 
+                />
             
             <Button
                 x:Name="CounterBtn"
