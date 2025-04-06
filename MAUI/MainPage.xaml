@@ -7,39 +7,42 @@
 
     <ScrollView>
         <VerticalStackLayout Padding="30,0" Spacing="25">
+            <HorizontalStackLayout Spacing="30">
+                <VerticalStackLayout Spacing="25">
+                    <HorizontalStackLayout Spacing="10">
+                        <Entry
+                            x:Name="StartDateEntry"
+                            HorizontalOptions="Center"
+                            MaxLength="10"
+                            Placeholder="Start date (YYYY-MM-DD)" />
+                        <Entry
+                            x:Name="EndDateEntry"
+                            HorizontalOptions="Center"
+                            MaxLength="10"
+                            Placeholder="End date (YYYY-MM-DD)" />
+                        <Button
+                            x:Name="DatesButton"
+                            Clicked="getFeedData"
+                            Text="Get Data" />
+                    </HorizontalStackLayout>
 
-            <Label
-                SemanticProperties.HeadingLevel="Level1"
-                Style="{StaticResource Headline}"
-                Text="Hello, emi!" />
+                    <ListView x:Name="ApproachesListView" />
 
-            <HorizontalStackLayout Spacing="10">
-                <Entry
-                    x:Name="StartDateEntry"
-                    HorizontalOptions="Center"
-                    MaxLength="10"
-                    Placeholder="Start date (YYYY-MM-DD)" />
-                <Entry
-                    x:Name="EndDateEntry"
-                    HorizontalOptions="Center"
-                    MaxLength="10"
-                    Placeholder="End date (YYYY-MM-DD)" />
-                <Button 
-                    x:Name="DatesButton" 
-                    Text="Get Data" 
-                    Clicked="getFeedData"/>
+                </VerticalStackLayout>
+                <VerticalStackLayout Spacing="25">
+                    <HorizontalStackLayout Spacing="20">
+                        <Entry
+                            x:Name="AsteroidIdEntry"
+                            HorizontalOptions="Center"
+                            Placeholder="Asteroid nasa ID" />
+                        <Button
+                            x:Name="AsteroidButton"
+                            Clicked="getAsteroidData"
+                            Text="Get Detailed Asteroid Info" />
+                    </HorizontalStackLayout>
+                    <Label x:Name="AsteroidDetailView" />
+                </VerticalStackLayout>
             </HorizontalStackLayout>
-            
-            <ListView
-                x:Name="AsteroidListView" 
-                />
-            
-            <Button
-                x:Name="CounterBtn"
-                Clicked="OnCounterClicked"
-                HorizontalOptions="Fill"
-                SemanticProperties.Hint="Counts the number of times you click"
-                Text="Click me" />
         </VerticalStackLayout>
     </ScrollView>
 

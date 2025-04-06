@@ -22,6 +22,5 @@ internal class NEO_Feed
 		string call = "https://api.nasa.gov/neo/rest/v1/feed?start_date=" + start_date + "&end_date=" + end_date + "&api_key=" + API_KEY;
 		string response = await client.GetStringAsync(call);
 		asteroid_feed = JsonSerializer.Deserialize<Asteroid_Feed>(response);
-		//Console.WriteLine(test);
 	}
 }
